@@ -17,16 +17,16 @@ public class SafeCopier extends Copier{
 
     public void run() {
         while (this.stringIterator.hasNext()) {
-            if (lock.tryLock()){
-                this.copied += stringIterator.next() + " " + Thread.currentThread().getName() + " ";
-                lock.unlock();
+            syncWrite();
+        }
+    }
 
-                try {
-                    TimeUnit.MILLISECONDS.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+    private synchronized void syncWrite() {
+        this.copied += stringIterator.next() + " " + Thread.currentThread().getName() + " ";
+        try {
+            TimeUnit.MILLISECONDS.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

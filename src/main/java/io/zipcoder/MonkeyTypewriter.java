@@ -25,11 +25,11 @@ public class MonkeyTypewriter {
         // A Tale Of Two Cities.
 
 
-        Copier unsafeCopier = new UnsafeCopier(introduction);
-        Thread[] unsafeThreads = new Thread[] {new Thread(unsafeCopier), new Thread(unsafeCopier), new Thread(unsafeCopier), new Thread(unsafeCopier), new Thread(unsafeCopier)};
-        for (Thread thread : unsafeThreads) {
-            thread.start();
-        }
+//        Copier unsafeCopier = new UnsafeCopier(introduction);
+//        Thread[] unsafeThreads = new Thread[] {new Thread(unsafeCopier), new Thread(unsafeCopier), new Thread(unsafeCopier), new Thread(unsafeCopier), new Thread(unsafeCopier)};
+//        for (Thread thread : unsafeThreads) {
+//            thread.start();
+//        }
 
         Copier safeCopier = new SafeCopier(introduction);
         Thread[] safeThreads = new Thread[] {new Thread(safeCopier), new Thread(safeCopier), new Thread(safeCopier), new Thread(safeCopier), new Thread(safeCopier)};
@@ -50,7 +50,7 @@ public class MonkeyTypewriter {
 
 
         // Print out the copied versions here.
-        System.out.println(unsafeCopier.copied);
+        //System.out.println(unsafeCopier.copied);
         System.out.println("---------------------------------------");
         System.out.println(safeCopier.copied);
     }

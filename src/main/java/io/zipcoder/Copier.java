@@ -11,6 +11,10 @@ public abstract class Copier implements Runnable {
     public Iterator<String> stringIterator;
     public String copied;
 
+    public String getCopied() {
+        return copied;
+    }
+
     public Copier(String toCopy) {
         // Take the input string, split it on spaces, turn that array to an arraylist, and then grab its iterator.
         this.stringIterator = Arrays.asList(toCopy.split(" ")).iterator();

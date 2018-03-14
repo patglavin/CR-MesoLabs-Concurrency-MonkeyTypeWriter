@@ -9,24 +9,24 @@ import java.util.concurrent.locks.ReentrantLock;
  * correctly every time.  Make the run method thread safe.
  */
 public class SafeCopier extends Copier{
+    boolean running =true;
 
     public SafeCopier(String toCopy) {
         super(toCopy);
     }
-    Lock lock = new ReentrantLock();
 
     public void run() {
-        while (this.stringIterator.hasNext()) {
-            syncWrite();
-        }
+        while (running) syncWrite();
     }
 
     private synchronized void syncWrite() {
-        this.copied += stringIterator.next() + " " + Thread.currentThread().getName() + " ";
-        try {
-            TimeUnit.MILLISECONDS.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        if (this.stringIterator.hasNext()) {
+            this.copied += stringIterator.next() + " " + Thread.currentThread().getName() + " ";
+            try {
+                TimeUnit.MILLISECONDS.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else running = false;
     }
 }

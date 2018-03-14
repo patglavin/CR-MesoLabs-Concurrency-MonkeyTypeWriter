@@ -16,16 +16,18 @@ public class SafeCopier extends Copier{
     Lock lock = new ReentrantLock();
 
     public void run() {
-        while (this.stringIterator.hasNext()) {
+        boolean continuing = true;
+        try {
+            TimeUnit.MILLISECONDS.sleep(30);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        while (continuing) {
             if (lock.tryLock()){
-                this.copied += stringIterator.next() + " " + Thread.currentThread().getName() + " ";
+                if (this.stringIterator.hasNext()) {
+                    this.copied += stringIterator.next() + " " + Thread.currentThread().getName() + " ";
+                } else continuing = false;
                 lock.unlock();
-
-                try {
-                    TimeUnit.MILLISECONDS.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
         }
     }
